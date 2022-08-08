@@ -16,10 +16,7 @@ export class LogInComponent implements OnInit {
 nome!:string;
 
   constructor(private chiamata: ChiamataService, private fb: FormBuilder,private router: Router,private loginOut:OutputnomeService ) {
-    loginOut.nameEmitted$.subscribe(
-      name => {
-          console.log(name);
-      });
+   
   }
 
   loginForm = this.fb.group({
@@ -37,11 +34,13 @@ nome!:string;
           element.username == usernamevalue &&
           element.password == passwordvalue
         ) {
-          this.nome=element.firstName+element.lastName;
+          this.nome=element.firstName+' '+element.lastName;
           foundUser = element;
-          console.log(true);
+          this.loginOut.emitChange(this.nome);
+          console.log( this.loginOut);
           this.router.navigate(['/homepage']);
           this.nomeCompleto.emit(this.nome);
+          
           return
         } else {
           console.log('error');

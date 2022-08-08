@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { OutputnomeService } from '../services/outputnome.service';
 
 @Component({
@@ -9,10 +10,14 @@ import { OutputnomeService } from '../services/outputnome.service';
 export class NavbarComponent implements OnInit {
 @Input() nomeCompleto!:string ;
 
-  constructor(private navRecived: OutputnomeService ) { }
+nomeEmesso!:string;
+subscription!: Subscription;
+  constructor(private dataService: OutputnomeService ) {
+    this.subscription = dataService.nameEmitted$.subscribe(val => this.nomeEmesso = val)
+   }
 
   emitValue(){
-    this.navRecived.emitChange('ciao')
+    // this.navRecived.emitChange('ciao')
   }
   ngOnInit(): void {
   }
