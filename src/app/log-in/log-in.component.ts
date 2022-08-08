@@ -1,3 +1,4 @@
+import { useAnimation } from '@angular/animations';
 import { Component, OnInit, resolveForwardRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Persone, User } from '../models/users.model';
@@ -19,8 +20,20 @@ export class LogInComponent implements OnInit {
   logIn() {
     const usernamevalue = this.loginForm.get('username')?.value;
     const passwordvalue = this.loginForm.get('password')?.value;
-    this.chiamata.logInQuery(usernamevalue!).subscribe((response: any) => {
-      console.log(response);
+    this.chiamata.logInQuery().subscribe((response: any) => {
+      let foundUser = {};
+      response.users.forEach((element: User) => {
+        if (
+          element.username == usernamevalue &&
+          element.password == passwordvalue
+        ) {
+          foundUser = element;
+          console.log(true);
+        } else {
+          console.log('error');
+        }
+      });
+      console.log(foundUser);
     });
   }
 
