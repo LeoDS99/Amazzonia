@@ -1,4 +1,5 @@
 import { Component, OnInit, resolveForwardRef } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Persone, User } from '../models/users.model';
 import { ChiamataService } from '../services/chiamata.service';
 
@@ -8,14 +9,20 @@ import { ChiamataService } from '../services/chiamata.service';
   styleUrls: ['./log-in.component.css'],
 })
 export class LogInComponent implements OnInit {
-  constructor(private chiamata: ChiamataService) {}
+  constructor(private chiamata: ChiamataService, private fb: FormBuilder) {}
 
-  getUser() {
-    this.chiamata.getUser().subscribe((response: Persone) => {
-      console.log(response.users.forEach((element) => console.log(element)));
+  loginForm = this.fb.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
+
+  logIn() {
+    const usernamevalue = this.loginForm.get('username')?.value;
+    const passwordvalue = this.loginForm.get('password')?.value;
+    this.chiamata.logInQuery(usernamevalue!).subscribe((response: any) => {
+      console.log(response);
     });
   }
-  ngOnInit(): void {
-    this.getUser();
-  }
+
+  ngOnInit(): void {}
 }

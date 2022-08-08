@@ -1,6 +1,5 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first } from 'rxjs';
 import { Persone, User } from '../models/users.model';
 
 @Injectable({
@@ -9,7 +8,9 @@ import { Persone, User } from '../models/users.model';
 export class ChiamataService {
   constructor(private http: HttpClient) {}
 
-  getUser() {
-    return this.http.get<Persone>('https://dummyjson.com/users/');
+  logInQuery(username: string) {
+    return this.http.get(
+      `https://dummyjson.com/users/filter?key=username&value=${username}`
+    );
   }
 }
