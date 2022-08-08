@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, resolveForwardRef } from '@angular/core';
+import { Persone, User } from '../models/users.model';
 import { ChiamataService } from '../services/chiamata.service';
 
 @Component({
@@ -10,8 +11,8 @@ export class LogInComponent implements OnInit {
   constructor(private chiamata: ChiamataService) {}
 
   getUser() {
-    this.chiamata.getUser().subscribe((response) => {
-      console.log(response);
+    this.chiamata.getUser().subscribe((response: Persone) => {
+      console.log(response.users.forEach((element) => console.log(element)));
     });
   }
   ngOnInit(): void {
