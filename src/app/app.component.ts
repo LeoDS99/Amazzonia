@@ -7,4 +7,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Amazzonia';
+
+  nameDeposit!:string;
+
+  showName(param: any){
+  this.nameDeposit = param;
+  console.log(this.nameDeposit);
+  }
+
+  nameConsole(){
+    console.log(this.nameDeposit)
+  }
 }

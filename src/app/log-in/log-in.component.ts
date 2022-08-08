@@ -1,16 +1,26 @@
 import { useAnimation } from '@angular/animations';
-import { Component, OnInit, resolveForwardRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, resolveForwardRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Persone, User } from '../models/users.model';
 import { ChiamataService } from '../services/chiamata.service';
-
+import { Router } from '@angular/router';
+import { OutputnomeService } from '../services/outputnome.service';
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
 })
 export class LogInComponent implements OnInit {
-  constructor(private chiamata: ChiamataService, private fb: FormBuilder) {}
+  
+@Output() nomeCompleto = new EventEmitter();
+nome!:string;
+
+  constructor(private chiamata: ChiamataService, private fb: FormBuilder,private router: Router,private loginOut:OutputnomeService ) {
+    loginOut.nameEmitted$.subscribe(
+      name => {
+          console.log(name);
+      });
+  }
 
   loginForm = this.fb.group({
     username: ['', Validators.required],
@@ -27,8 +37,12 @@ export class LogInComponent implements OnInit {
           element.username == usernamevalue &&
           element.password == passwordvalue
         ) {
+          this.nome=element.firstName+element.lastName;
           foundUser = element;
           console.log(true);
+          this.router.navigate(['/homepage']);
+          this.nomeCompleto.emit(this.nome);
+          return
         } else {
           console.log('error');
         }
@@ -38,4 +52,6 @@ export class LogInComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+
 }
