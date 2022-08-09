@@ -11,4 +11,6 @@ export class ChiamataService {
   logInQuery() {
     return this.http.get(`https://dummyjson.com/users/`);
   }
+
+ 
 }
