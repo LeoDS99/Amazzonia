@@ -8,8 +8,8 @@ import { Persone, User } from '../models/users.model';
 export class ChiamataService {
   constructor(private http: HttpClient) {}
 
-  logInQuery() {
-    return this.http.get(`https://dummyjson.com/users/`);
+  logInQuery(username : string) {
+    return this.http.get(`https://dummyjson.com/users/filter?key=username&value=${username}`);
   }
 
  

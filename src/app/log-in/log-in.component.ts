@@ -12,7 +12,7 @@ import { OutputnomeService } from '../services/outputnome.service';
 })
 export class LogInComponent implements OnInit {
   
-@Output() nomeCompleto = new EventEmitter();
+
 nome!:string;
 
   constructor(private chiamata: ChiamataService, private fb: FormBuilder,private router: Router,private loginOut:OutputnomeService ) {
@@ -27,28 +27,22 @@ nome!:string;
   logIn() {
     const usernamevalue = this.loginForm.get('username')?.value;
     const passwordvalue = this.loginForm.get('password')?.value;
-    this.chiamata.logInQuery().subscribe((response: any) => {
+    this.chiamata.logInQuery(usernamevalue!).subscribe((response: any) => {
+      console.log(response.users[0].id)
+      if(response.users[0].password === passwordvalue){
+    
+      this.nome = response.users[0].firstName+' '+response.users[0].lastName;
+      console.log(this.nome);
+      this.loginOut.emitChange(this.nome);
+      this.router.navigate(['/homepage']);
+
+      }
+      else{
+        alert('credenziali sbagliate')
+      }
       let foundUser = {};
-      response.users.forEach((element: User) => {
-        if (
-          element.username == usernamevalue &&
-          element.password == passwordvalue
-        ) {
-          this.nome=element.firstName+' '+element.lastName;
-          foundUser = element;
-          this.loginOut.emitChange(this.nome);
-          console.log( this.loginOut);
-          this.router.navigate(['/homepage']);
-          this.nomeCompleto.emit(this.nome);
-          
-          
-        } else {
-          console.log('error');
-        }
-      });
-      console.log(foundUser);
-    });
-  }
+    
+  })}
 
   ngOnInit(): void {}
 
