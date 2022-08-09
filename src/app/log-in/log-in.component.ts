@@ -41,7 +41,7 @@ nome!:string;
           this.router.navigate(['/homepage']);
           this.nomeCompleto.emit(this.nome);
           
-          return
+          
         } else {
           console.log('error');
         }
