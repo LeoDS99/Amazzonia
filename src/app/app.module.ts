@@ -9,9 +9,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomepageComponent } from './homepage/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
-  declarations: [AppComponent, LogInComponent, HomepageComponent, NavbarComponent],
+  declarations: [AppComponent, LogInComponent, HomepageComponent, NavbarComponent, DetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
