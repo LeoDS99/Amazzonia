@@ -18,6 +18,6 @@ export class DetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.productId);
+    
   }
 }

@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { ChiamataService } from './chiamata.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DetailProductService {
-  private subject = new Subject<any>();
+  private subject = new BehaviorSubject<any>(null);
   emittedProduct$: any = this.subject.asObservable();
   constructor(private http: HttpClient) {}
 

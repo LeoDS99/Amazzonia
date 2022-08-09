@@ -29,6 +29,6 @@ export class HomepageComponent implements OnInit {
 
   getDetail(parameter: number) {
     this.detail.getProductId(parameter);
-    this.router.navigate(['/detail']);
+    this.router.navigate(['detail']);
   }
 }
