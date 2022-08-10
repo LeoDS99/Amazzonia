@@ -18,4 +18,8 @@ export class DetailProductService {
   getProductId(value: number) {
     this.subject.next(value);
   }
+
+  searchProduct(value: string) {
+    return this.http.get(`https://dummyjson.com/products/search?q=${value}`);
+  }
 }
