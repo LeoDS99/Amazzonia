@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 
 @Component({
@@ -8,16 +9,26 @@ import { DetailProductService } from '../services/detail-product.service';
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-  productId!: number;
+  productId: number = 0;
   subsc!: Subscription;
+  productInfo!: Product;
+
   constructor(private detail: DetailProductService) {
-    this.subsc = detail.emittedProduct$.subscribe((response: any) => {
-      console.log(response);
-      this.productId = response;
-    });
+
   }
 
+  
   ngOnInit(): void {
-    
+    this.subsc = this.detail.emittedProduct$.subscribe((response: any) => {
+      this.productId = response
+    });
+
+    this.getDetail();
+  }
+  
+  getDetail() {
+    return this.detail.getDetailUrl(this.productId).subscribe((response: any) => {
+      this.productInfo = response;
+    })
   }
 }
