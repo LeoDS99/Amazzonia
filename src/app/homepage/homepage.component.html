@@ -4,7 +4,7 @@
       <div class="card mx-3 my-3 text-center" style="width: 20rem">
         <img
           class="card-img-top"
-          src="{{ product.images[0] }}"
+          src="{{ product.thumbnail }}"
           alt="Card image cap"
           height="auto"
           width="auto"
@@ -22,8 +22,9 @@
               href="#"
               class="btn btn-dark mx-3"
               (click)="getDetail(product.id)"
-              >Scopri di più!</button
             >
+              Scopri di più!
+            </button>
             <a href="#" class="btn btn-success">
               <i class="fa fa-cart-plus" aria-hidden="true"></i
             ></a>
