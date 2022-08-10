@@ -9,17 +9,28 @@
     <h3 class="nameuser display-9 mx-3">Benvenuto {{ nomeEmesso }}</h3>
   </div>
 
-  <form class="form-inline d-flex justify-content-center align-items-center">
+  <form
+    class="form-inline d-flex justify-content-center align-items-center"
+    [formGroup]="searchBar"
+  >
     <i class="fa fa-shopping-cart fa-10x" aria-hidden="true "></i>
+
     <input
       class="form-control mr-2 mx-2"
       type="search"
       placeholder="Trova i tuoi prodotti"
       aria-label="Search"
       (keydown)="searchProduct($event)"
+      formControlName="search"
     />
+
     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
       Cerca
     </button>
   </form>
 </nav>
+<div *ngIf="searchBar.get('search')?.value?.length">
+  <div *ngFor="let product of foundedProduct">
+    <H1>{{ product.title }}</H1>
+  </div>
+</div>

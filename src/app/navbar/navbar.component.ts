@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
@@ -14,23 +15,31 @@ export class NavbarComponent implements OnInit {
   fullsearch: boolean = false;
   nomeEmesso!: string;
   subscription!: Subscription;
+  foundedProduct: any = [];
+
   constructor(
     private dataService: OutputnomeService,
-    private detail: DetailProductService
+    private detail: DetailProductService,
+    private fb: FormBuilder
   ) {
     this.subscription = dataService.nameEmitted$.subscribe(
       (val) => (this.nomeEmesso = val)
     );
   }
 
+  searchBar = this.fb.group({
+    search: ['', Validators.required],
+  });
   ngOnInit(): void {}
   hello() {
     console.log('ciao savio');
   }
   searchProduct(event: any) {
     this.detail.searchProduct(event.target.value).subscribe((response: any) => {
+      this.foundedProduct = [];
       response.products.forEach((element: any) => {
-        console.log(element);
+        console.log(this.foundedProduct);
+        this.foundedProduct.push(element);
       });
     });
   }
