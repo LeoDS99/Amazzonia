@@ -18,3 +18,7 @@ a {
 .imgcarousel {
   border-radius: 15%;
 }
+
+.fa-star{
+  color: rgb(255, 223, 11);
+}
