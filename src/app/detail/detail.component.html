@@ -1,7 +1,16 @@
 <div class="container mt-5">
-  <div class="d-flex align-items-center justify-content-around">
+  <div class="d-flex align-items-center justify-content-around ">
     <div class="imgdiv">
-      <img src="{{ productInfo.images[0] }}" alt="" />
+      <div class="carousel d-flex align-items-center justify-content-center">
+        <ngb-carousel *ngIf="productInfo.images">
+          <ng-template *ngFor="let image of productInfo.images" ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img [src]="image" alt="Random first slide" />
+            </div>
+            <div class="carousel-caption"></div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
     </div>
     <div
       class="Desc d-flex flex-column align-items-center justify-content-center"
@@ -33,13 +42,4 @@
   </div>
 </div>
 
-<div class="carousel d-flex align-items-center justify-content-center">
-  <ngb-carousel *ngIf="productInfo.images">
-    <ng-template *ngFor="let image of productInfo.images" ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="image" alt="Random first slide" />
-      </div>
-      <div class="carousel-caption"></div>
-    </ng-template>
-  </ngb-carousel>
-</div>
+
