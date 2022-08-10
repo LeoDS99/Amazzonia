@@ -14,9 +14,9 @@
     [formGroup]="searchBar"
   >
     <i class="fa fa-shopping-cart fa-10x" aria-hidden="true "></i>
-
+  <div class="mx-3">
     <input
-      class="form-control mr-2 mx-2"
+      class="form-control mr-2"
       type="search"
       placeholder="Trova i tuoi prodotti"
       aria-label="Search"
@@ -24,13 +24,16 @@
       formControlName="search"
     />
 
+    <div class="foundItems" *ngIf="searchBar.get('search')?.value?.length">
+      <div class="singleItem" *ngFor="let product of foundedProduct" (click)="getId(product.id)">
+        <h1>{{ product.title }}</h1>
+      </div>
+    </div>
+  </div>
+
     <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
       Cerca
     </button>
   </form>
 </nav>
-<div *ngIf="searchBar.get('search')?.value?.length">
-  <div *ngFor="let product of foundedProduct">
-    <H1>{{ product.title }}</H1>
-  </div>
-</div>
+
