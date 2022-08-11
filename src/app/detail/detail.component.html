@@ -1,1 +1,45 @@
-aaskfnaknea
+<div class="container mt-5">
+  <div class="d-flex align-items-center justify-content-around ">
+    <div class="imgdiv">
+      <div class="carousel d-flex align-items-center justify-content-center">
+        <ngb-carousel *ngIf="productInfo.images">
+          <ng-template *ngFor="let image of productInfo.images" ngbSlide>
+            <div class="picsum-img-wrapper">
+              <img [src]="image" alt="Random first slide" />
+            </div>
+            <div class="carousel-caption"></div>
+          </ng-template>
+        </ngb-carousel>
+      </div>
+    </div>
+    <div
+      class="Desc d-flex flex-column align-items-center justify-content-center"
+    >
+      <h1 class="display-2">{{ productInfo.title }}</h1>
+      <p class="h6">Brand: {{ productInfo.brand }}</p>
+      <div class="d-flex flex-row justify-content-around align-items-center">
+        <p class="price">
+          <b>€{{ productInfo.price }}</b>
+        </p>
+        <sub class="discount" style="color: red">
+          -%{{ productInfo.discountPercentage }}
+        </sub>
+      </div>
+      <div class="d-flex align-items-center justify-content-center">
+        <p style="font-size: 30px" class="">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            {{ productInfo.rating }}/5</p>
+        <a href="#" class="btn btn-success ms-3">
+          <i class="fa fa-cart-plus" aria-hidden="true"></i
+        ></a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="container mt-4 mx-auto d-flex align-items-center justify-content-center"
+  >
+    <p class="text-center desc">{{ productInfo.description }}</p>
+  </div>
+</div>
+
+

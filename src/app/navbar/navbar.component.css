@@ -12,3 +12,28 @@ cursor: pointer;
     color:white;
     
 }
+
+.foundItems {
+    position: absolute;
+    background-color: whitesmoke;
+    margin-top: 0;
+    width: 207px;
+    z-index: 1;
+
+}
+
+.singleItem {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black ;
+    border-right: 1px solid black;
+    padding-left: 5px;
+}
+
+.singleItem h1 {
+    font-size: 20px;
+}
+
+.singleItem:hover {
+    cursor: pointer;
+    background-color: orange;
+}
