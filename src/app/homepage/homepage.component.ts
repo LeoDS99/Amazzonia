@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { ChiamataService } from '../services/chiamata.service';
 import { DetailProductService } from '../services/detail-product.service';
 import { Router } from '@angular/router';
+import { NavbarService } from '../services/navbar.service';
 
 @Component({
   selector: 'app-homepage',
@@ -13,7 +14,8 @@ export class HomepageComponent implements OnInit {
   constructor(
     private router: Router,
     private http: ChiamataService,
-    private detail: DetailProductService
+    private detail: DetailProductService,
+    private navbar: NavbarService
   ) {}
   products!: any;
 

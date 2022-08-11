@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
+import { NavbarService } from '../services/navbar.service';
 import { OutputnomeService } from '../services/outputnome.service';
 
 @Component({
@@ -17,12 +18,15 @@ export class NavbarComponent implements OnInit {
   nomeEmesso!: string;
   subscription!: Subscription;
   foundedProduct!: Product[] ;
+  navbarSub!: Subscription
+  showNavbar = false;
 
   constructor(
     private dataService: OutputnomeService,
     private detail: DetailProductService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
+    private showNav: NavbarService
   ) {
     this.subscription = dataService.nameEmitted$.subscribe(
       (val) => (this.nomeEmesso = val)
@@ -32,7 +36,11 @@ export class NavbarComponent implements OnInit {
   searchBar = this.fb.group({
     search: ['', Validators.required],
   });
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.navbarSub = this.showNav.showEmitted$.subscribe(resp=> {
+      this.showNavbar = resp
+    })
+  }
   hello() {
     console.log('ciao savio');
   }
