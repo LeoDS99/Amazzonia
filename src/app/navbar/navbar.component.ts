@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   fullsearch: boolean = false;
   nomeEmesso!: string;
   subscription!: Subscription;
-  foundedProduct: any = [];
+  foundedProduct!: Product[] ;
 
   constructor(
     private dataService: OutputnomeService,
@@ -37,9 +37,10 @@ export class NavbarComponent implements OnInit {
     console.log('ciao savio');
   }
   searchProduct(event: any) {
-    this.detail.searchProduct(event.target.value).subscribe((response: any) => {
+    this.detail.searchProduct(event.target.value).subscribe((response) => {
+     
       this.foundedProduct = [];
-      response.products.forEach((element: any) => {
+      response.products.forEach((element: Product) => {
         console.log(this.foundedProduct);
         this.foundedProduct.push(element);
       });
@@ -47,7 +48,11 @@ export class NavbarComponent implements OnInit {
   }
 
   getId(id: number) {
+    
     this.detail.getProductId(id);
-    this.router.navigate(['detail'])
+    this.router.navigate([]);
+    this.router.navigateByUrl('detail', { skipLocationChange: false }).then(() => {
+      this.router.navigate(['detail']);
+  }); 
   }
 }
