@@ -45,7 +45,7 @@ nome!:string;
       else{
         alert('credenziali sbagliate')
       }
-      let foundUser = {};
+     
   })}
 
   ngOnInit(): void {}
