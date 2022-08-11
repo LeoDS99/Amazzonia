@@ -1,5 +1,5 @@
 <div class="container mt-5">
-  <div class="d-flex align-items-center justify-content-around ">
+  <div class="d-flex align-items-center justify-content-around">
     <div class="imgdiv">
       <div class="carousel d-flex align-items-center justify-content-center">
         <ngb-carousel *ngIf="productInfo.images">
@@ -22,14 +22,15 @@
           <b>€{{ productInfo.price }}</b>
         </p>
         <sub class="discount" style="color: red">
-          -%{{ productInfo.discountPercentage}}
+          -%{{ productInfo.discountPercentage }}
         </sub>
       </div>
       <div class="d-flex align-items-center justify-content-center">
         <p style="font-size: 30px" class="">
-            <i class="fa fa-star" aria-hidden="true"></i>
-            {{ productInfo.rating }}/5</p>
-        <a href="#" class="btn btn-success ms-3">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          {{ productInfo.rating }}/5
+        </p>
+        <a routerLink="/cart" class="btn btn-success ms-3">
           <i class="fa fa-cart-plus" aria-hidden="true"></i
         ></a>
       </div>
@@ -41,5 +42,3 @@
     <p class="text-center desc">{{ productInfo.description }}</p>
   </div>
 </div>
-
-
