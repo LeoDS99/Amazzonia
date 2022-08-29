@@ -15,7 +15,7 @@ import { OutputnomeService } from '../services/outputnome.service';
 export class NavbarComponent implements OnInit {
   @Input() nomeCompleto!: string;
   fullsearch: boolean = false;
-  nomeEmesso!: any;
+  nomeEmesso!: String;
   subscription!: Subscription;
   foundedProduct!: Product[] ;
   navbarSub!: Subscription
@@ -63,8 +63,7 @@ export class NavbarComponent implements OnInit {
   }
 
   showName() {
-    this.route.queryParams.pipe(filter((param) => param['name']))
-    .subscribe((param) => {
+    this.route.queryParams.subscribe((param) => {
       console.log(param);
       this.nomeEmesso = param['name'];
       console.log(this.nomeEmesso);
