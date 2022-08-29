@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, filter } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 import { NavbarService } from '../services/navbar.service';
@@ -15,31 +15,35 @@ import { OutputnomeService } from '../services/outputnome.service';
 export class NavbarComponent implements OnInit {
   @Input() nomeCompleto!: string;
   fullsearch: boolean = false;
-  nomeEmesso!: string;
+  nomeEmesso!: String;
   subscription!: Subscription;
-  foundedProduct!: Product[];
-  navbarSub!: Subscription;
-  showNavbar = false;
+
+  foundedProduct!: Product[] ;
+  navbarSub!: Subscription
+
+
 
   constructor(
     private dataService: OutputnomeService,
     private detail: DetailProductService,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private showNav: NavbarService
   ) {
-    this.subscription = dataService.nameEmitted$.subscribe(
-      (val) => (this.nomeEmesso = val)
-    );
+    // this.subscription = dataService.nameEmitted$.subscribe(
+    //   (val) => (this.nomeEmesso = val)
+    // );
   }
 
   searchBar = this.fb.group({
     search: ['', Validators.required],
   });
   ngOnInit(): void {
-    this.navbarSub = this.showNav.showEmitted$.subscribe((resp) => {
-      this.showNavbar = resp;
-    });
+
+    this.showName()
+
+
   }
 
   searchProduct(event: any) {
@@ -60,5 +64,15 @@ export class NavbarComponent implements OnInit {
       .then(() => {
         this.router.navigate(['detail']);
       });
+  }
+
+  showName() {
+    this.route.queryParams.subscribe((param) => {
+      console.log(param);
+      this.nomeEmesso = param['name'];
+      console.log(this.nomeEmesso);
+    }
+    )
+
   }
 }

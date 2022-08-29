@@ -12,9 +12,10 @@ import { DetailComponent } from './detail/detail.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
-  declarations: [AppComponent, LogInComponent, HomepageComponent, NavbarComponent, DetailComponent],
+  declarations: [AppComponent, LogInComponent, HomepageComponent, NavbarComponent, DetailComponent, DashboardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
