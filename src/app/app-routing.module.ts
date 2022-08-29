@@ -7,10 +7,14 @@ import { LogInComponent } from './log-in/log-in.component';
 
 const routes: Routes = [
   { path: '', component: LogInComponent },
-  { path: 'dashboard', component: DashboardComponent, children: [
-    { path: 'homepage', component: HomepageComponent },
-    { path: 'detail', component: DetailComponent },
-  ]},
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: 'homepage', component: HomepageComponent },
+      { path: 'detail', component: DetailComponent },
+    ],
+  },
 ];
 
 @NgModule({

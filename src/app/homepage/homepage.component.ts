@@ -30,12 +30,12 @@ export class HomepageComponent implements OnInit {
   }
 
   getDetail(parameter: number) {
-    this.detail.getProductId(parameter);
-
     this.router
       .navigateByUrl('dashboard/detail', { skipLocationChange: false })
       .then(() => {
-        this.router.navigate(['detail']);
+        this.router.navigate(['dashboard/detail'], {
+          queryParams: { id: parameter },
+        });
       });
   }
 }
