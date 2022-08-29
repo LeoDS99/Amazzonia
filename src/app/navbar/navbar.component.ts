@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,15 +14,12 @@ import { OutputnomeService } from '../services/outputnome.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  @Input() nomeCompleto!: string;
   fullsearch: boolean = false;
-  nomeEmesso!: String;
+  @Input() nomeEmesso!: string;
   subscription!: Subscription;
 
-  foundedProduct!: Product[] ;
-  navbarSub!: Subscription
-
-
+  foundedProduct!: Product[];
+  navbarSub!: Subscription;
 
   constructor(
     private dataService: OutputnomeService,
@@ -35,15 +33,13 @@ export class NavbarComponent implements OnInit {
     //   (val) => (this.nomeEmesso = val)
     // );
   }
+  nome: any = localStorage.getItem('nome')!;
 
   searchBar = this.fb.group({
     search: ['', Validators.required],
   });
   ngOnInit(): void {
-
-    this.showName()
-
-
+    this.nome;
   }
 
   searchProduct(event: any) {
@@ -64,15 +60,5 @@ export class NavbarComponent implements OnInit {
       .then(() => {
         this.router.navigate(['detail']);
       });
-  }
-
-  showName() {
-    this.route.queryParams.subscribe((param) => {
-      console.log(param);
-      this.nomeEmesso = param['name'];
-      console.log(this.nomeEmesso);
-    }
-    )
-
   }
 }
