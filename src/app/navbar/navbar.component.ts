@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription, filter } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 import { NavbarService } from '../services/navbar.service';
@@ -15,35 +15,33 @@ import { OutputnomeService } from '../services/outputnome.service';
 export class NavbarComponent implements OnInit {
   @Input() nomeCompleto!: string;
   fullsearch: boolean = false;
-  nomeEmesso!: string;
+  nomeEmesso!: any;
   subscription!: Subscription;
   foundedProduct!: Product[] ;
   navbarSub!: Subscription
-  showNavbar = false;
+
 
   constructor(
     private dataService: OutputnomeService,
     private detail: DetailProductService,
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private showNav: NavbarService
   ) {
-    this.subscription = dataService.nameEmitted$.subscribe(
-      (val) => (this.nomeEmesso = val)
-    );
+    // this.subscription = dataService.nameEmitted$.subscribe(
+    //   (val) => (this.nomeEmesso = val)
+    // );
   }
 
   searchBar = this.fb.group({
     search: ['', Validators.required],
   });
   ngOnInit(): void {
-    this.navbarSub = this.showNav.showEmitted$.subscribe(resp=> {
-      this.showNavbar = resp
-    })
+    this.showName()
+
   }
-  hello() {
-    console.log('ciao savio');
-  }
+
   searchProduct(event: any) {
     this.detail.searchProduct(event.target.value).subscribe((response) => {
      
@@ -62,5 +60,16 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('detail', { skipLocationChange: false }).then(() => {
       this.router.navigate(['detail']);
   }); 
+  }
+
+  showName() {
+    this.route.queryParams.pipe(filter((param) => param['name']))
+    .subscribe((param) => {
+      console.log(param);
+      this.nomeEmesso = param['name'];
+      console.log(this.nomeEmesso);
+    }
+    )
+
   }
 }

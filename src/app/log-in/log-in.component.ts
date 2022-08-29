@@ -13,8 +13,6 @@ import { NavbarService } from '../services/navbar.service';
 })
 export class LogInComponent implements OnInit {
 
-showNav: boolean = true;
-
 nome!:string;
 
   constructor(private chiamata: ChiamataService, private fb: FormBuilder,private router: Router,private loginOut:OutputnomeService, private navbar: NavbarService ) {
@@ -30,16 +28,14 @@ nome!:string;
     const usernamevalue = this.loginForm.get('username')?.value;
     const passwordvalue = this.loginForm.get('password')?.value;
     this.chiamata.logInQuery(usernamevalue!).subscribe((response: any) => {
+
       console.log(response.users[0].id)
       if(response.users[0].password === passwordvalue){
     
       this.nome = response.users[0].firstName+' '+response.users[0].lastName;
       console.log(this.nome);
-       this.navbar.navChange(this.showNav)
-
-
       this.loginOut.emitChange(this.nome);
-      this.router.navigate(['/homepage']);
+      this.router.navigate(['/dashboard/homepage'], {queryParams: {name: this.nome}});
 
       }
       else{
