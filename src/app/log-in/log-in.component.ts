@@ -19,6 +19,7 @@ import { NavbarService } from '../services/navbar.service';
 })
 export class LogInComponent implements OnInit {
   nome!: string;
+  userId!: number;
 
   constructor(
     private chiamata: ChiamataService,
@@ -42,13 +43,13 @@ export class LogInComponent implements OnInit {
         this.nome =
           response.users[0].firstName + ' ' + response.users[0].lastName;
         console.log(this.nome);
-        this.loginOut.emitChange(this.nome);
+        this.userId = response.users[0].id;
 
         let completeName = this.nome;
         localStorage.setItem('nome', completeName);
 
         this.router.navigate(['/dashboard/homepage'], {
-          queryParams: { name: this.nome },
+          queryParams: { name: this.nome, userId: this.userId },
         });
       } else {
         alert('credenziali sbagliate');

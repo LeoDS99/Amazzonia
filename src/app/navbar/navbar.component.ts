@@ -1,7 +1,11 @@
 import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
@@ -27,20 +31,25 @@ export class NavbarComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private showNav: NavbarService,
-    
+    private showNav: NavbarService
   ) {
     // this.subscription = dataService.nameEmitted$.subscribe(
     //   (val) => (this.nomeEmesso = val)
     // );
   }
   nome: any = localStorage.getItem('nome')!;
-
+  takedUserId!: string;
   searchBar = this.fb.group({
     search: ['', Validators.required],
   });
   ngOnInit(): void {
-    this.nome;
+    this.route.queryParams
+      .pipe(filter((params) => params['userId']))
+      .subscribe((params) => {
+        console.log(params); // { category: "fiction" }
+        this.takedUserId = params['userId'];
+        console.log(this.takedUserId); // fiction
+      });
   }
 
   searchProduct(event: any) {
@@ -55,27 +64,27 @@ export class NavbarComponent implements OnInit {
 
   getId(id: number) {
     this.detail.getProductId(id);
-    
-    
-    this.router.navigate(['dashboard/detail'], {
-      queryParams: { id: id },
-    }).then(() => {
-      window.location.reload();
-    });
 
-  
+    this.router
+      .navigate(['dashboard/detail'], {
+        queryParams: { id: id },
+      })
+      .then(() => {
+        window.location.reload();
+      });
+
     // this.shouldReuseRoute('dashboard/detail', 'dashboard/detail')
-   
-    
-      
   }
 
+  navigateToCart() {
+    this.router.navigate(['dashboard/cart'], {
+      queryParams: { id: this.takedUserId },
+    });
+  }
   // shouldReuseRoute(
   //   previous: ActivatedRouteSnapshot,
   //   next: ActivatedRouteSnapshot
   // ): boolean {
   //   return previous.routeConfig === next.routeConfig;
   // }
-
- 
 }

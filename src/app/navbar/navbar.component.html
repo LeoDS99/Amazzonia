@@ -1,6 +1,7 @@
 <nav class="navbar navbar-dark bg-black justify-content-between">
   <div class="d-flex justify-content-center align-items-center">
-    <img class="logo-nav"
+    <img
+      class="logo-nav"
       src="../../../assets/LogoBlack.jpg"
       alt=""
       width="80px"
@@ -14,7 +15,11 @@
     class="form-inline d-flex justify-content-center align-items-center"
     [formGroup]="searchBar"
   >
-    <i class="fa fa-shopping-cart fa-10x" aria-hidden="true "></i>
+    <i
+      (click)="navigateToCart()"
+      class="fa fa-shopping-cart fa-10x"
+      aria-hidden="true "
+    ></i>
     <div class="mx-3">
       <input
         class="form-control mr-2"

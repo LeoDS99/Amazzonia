@@ -1,0 +1,30 @@
+<div class="container d-flex flex-column align-items-center">
+  <div
+    *ngFor="let product of cart.carts[0].products"
+    class="card my-3"
+    style="width: 50rem"
+  >
+    <div class="card-body">
+      <h5 class="card-title text-start">{{ product.title }}</h5>
+      <div class="d-flex flex-row align-items-center justify-content-around">
+        <div class="d-flex align-items-center">
+          <h6 style="text-decoration: line-through" class="card-subtitle mb-2">
+            {{ product.discountedPrice }}€
+          </h6>
+          <sub class="text-danger">{{ product.discountPercentage }}%</sub>
+          <h2 class="card-subtitle ms-4 mb-2 text-success">
+            {{ product.price }}€
+          </h2>
+        </div>
+        <h6 class="card-subtitle mb-2">Quantintà:{{ product.quantity }}</h6>
+      </div>
+    </div>
+  </div>
+  <h2 style="text-decoration: line-through; color: red">
+    Totale: {{ cart.carts[0].total }}€
+  </h2>
+  <h2 class="text-success">
+    Totale scontato: {{ cart.carts[0].discountedTotal }}€
+  </h2>
+  <Button class="btn btn-warning">COMPRALO NOW!!!</Button>
+</div>
