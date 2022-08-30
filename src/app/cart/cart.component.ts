@@ -17,10 +17,11 @@ export class CartComponent implements OnInit {
     this.showId();
     this.getCart();
   }
-
+  cart!: any;
   getCart() {
     this.cartService.getSingleCart(this.cartId).subscribe((response) => {
       console.log(response);
+      this.cart = response;
     });
   }
   showId() {
