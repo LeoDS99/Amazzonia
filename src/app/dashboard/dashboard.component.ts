@@ -11,14 +11,14 @@ export class DashboardComponent implements OnInit {
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.showName();
+    // this.showName();
   }
 
-  showName() {
-    this.route.queryParams.subscribe((param) => {
-      console.log(param);
-      this.nomeEmesso = param['name'];
-      console.log(this.nomeEmesso);
-    });
-  }
+  // showName() {
+  //   this.route.queryParams.subscribe((param) => {
+  //     console.log(param);
+  //     this.nomeEmesso = param['name'];
+  //     console.log(this.nomeEmesso);
+  //   });
+  // }
 }

@@ -13,9 +13,18 @@ import { LogInComponent } from './log-in/log-in.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
-  declarations: [AppComponent, LogInComponent, HomepageComponent, NavbarComponent, DetailComponent, DashboardComponent],
+  declarations: [
+    AppComponent,
+    LogInComponent,
+    HomepageComponent,
+    NavbarComponent,
+    DetailComponent,
+    DashboardComponent,
+    CartComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

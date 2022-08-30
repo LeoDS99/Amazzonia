@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CartComponent } from './cart/cart.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DetailComponent } from './detail/detail.component';
 import { HomepageComponent } from './homepage/homepage.component';
@@ -13,6 +14,7 @@ const routes: Routes = [
     children: [
       { path: 'homepage', component: HomepageComponent },
       { path: 'detail', component: DetailComponent },
+      { path: 'cart', component: CartComponent },
     ],
   },
 ];
