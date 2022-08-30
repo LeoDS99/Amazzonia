@@ -1,7 +1,7 @@
 import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
@@ -27,7 +27,8 @@ export class NavbarComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private showNav: NavbarService
+    private showNav: NavbarService,
+    
   ) {
     // this.subscription = dataService.nameEmitted$.subscribe(
     //   (val) => (this.nomeEmesso = val)
@@ -54,11 +55,27 @@ export class NavbarComponent implements OnInit {
 
   getId(id: number) {
     this.detail.getProductId(id);
-    this.router.navigate([]);
-    this.router
-      .navigateByUrl('detail', { skipLocationChange: false })
-      .then(() => {
-        this.router.navigate(['detail']);
-      });
+    
+    
+    this.router.navigate(['dashboard/detail'], {
+      queryParams: { id: id },
+    }).then(() => {
+      window.location.reload();
+    });
+
+  
+    // this.shouldReuseRoute('dashboard/detail', 'dashboard/detail')
+   
+    
+      
   }
+
+  // shouldReuseRoute(
+  //   previous: ActivatedRouteSnapshot,
+  //   next: ActivatedRouteSnapshot
+  // ): boolean {
+  //   return previous.routeConfig === next.routeConfig;
+  // }
+
+ 
 }

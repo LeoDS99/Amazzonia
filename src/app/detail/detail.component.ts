@@ -24,6 +24,7 @@ export class DetailComponent implements OnInit {
     //   this.productId = response;
     // });
     this.showId();
+  
   }
 
   // this.getDetail();
@@ -40,6 +41,10 @@ export class DetailComponent implements OnInit {
     });
   }
 
+  reloading(){
+    window.location.reload();
+    console.log('test')
+  }
   // getDetail() {
   //   return this.detail.getDetailUrl(this.productId).subscribe((response: Product) => {
   //     this.productInfo = response;
