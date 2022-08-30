@@ -1,19 +1,20 @@
 <nav class="navbar navbar-dark bg-black justify-content-between">
-    <div class="d-flex justify-content-center align-items-center">
-      <img
-        src="../../../assets/LogoBlack.jpg"
-        alt=""
-        width="80px"
-        height="60px"
-      />
-      <h3 class="nameuser display-9 mx-3">Benvenuto {{ nomeEmesso }}</h3>
-    </div>
-  
-    <form
-      class="form-inline d-flex justify-content-center align-items-center"
-      [formGroup]="searchBar"
-    >
-      <i class="fa fa-shopping-cart fa-10x" aria-hidden="true "></i>
+  <div class="d-flex justify-content-center align-items-center">
+    <img class="logo-nav"
+      src="../../../assets/LogoBlack.jpg"
+      alt=""
+      width="80px"
+      height="60px"
+      routerLink="/dashboard/homepage"
+    />
+    <h3 class="nameuser display-9 mx-3">Benvenuto {{ nome }}</h3>
+  </div>
+
+  <form
+    class="form-inline d-flex justify-content-center align-items-center"
+    [formGroup]="searchBar"
+  >
+    <i class="fa fa-shopping-cart fa-10x" aria-hidden="true "></i>
     <div class="mx-3">
       <input
         class="form-control mr-2"
@@ -23,16 +24,20 @@
         (keydown)="searchProduct($event)"
         formControlName="search"
       />
-  
+
       <div class="foundItems" *ngIf="searchBar.get('search')?.value?.length">
-        <div class="singleItem" *ngFor="let product of foundedProduct" (click)="getId(product.id)">
+        <div
+          class="singleItem"
+          *ngFor="let product of foundedProduct"
+          (click)="getId(product.id)"
+        >
           <h1>{{ product.title }}</h1>
         </div>
       </div>
     </div>
-  
-      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
-        Cerca
-      </button>
-    </form>
-  </nav>
+
+    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">
+      Cerca
+    </button>
+  </form>
+</nav>

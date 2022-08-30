@@ -1,3 +1,17 @@
 .card {
   height: 100%;
+ 
+}
+
+.card-img-top{
+
+  height: 250px;
+  background-size:cover;
+}
+
+.card-text{
+  font-size: 15px;
+  height: 100px;
+  overflow: hidden;
+
 }

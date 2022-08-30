@@ -1,6 +1,7 @@
+import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
@@ -13,15 +14,12 @@ import { OutputnomeService } from '../services/outputnome.service';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  @Input() nomeCompleto!: string;
   fullsearch: boolean = false;
-  nomeEmesso!: String;
+  @Input() nomeEmesso!: string;
   subscription!: Subscription;
 
-  foundedProduct!: Product[] ;
-  navbarSub!: Subscription
-
-
+  foundedProduct!: Product[];
+  navbarSub!: Subscription;
 
   constructor(
     private dataService: OutputnomeService,
@@ -29,21 +27,20 @@ export class NavbarComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private showNav: NavbarService
+    private showNav: NavbarService,
+    
   ) {
     // this.subscription = dataService.nameEmitted$.subscribe(
     //   (val) => (this.nomeEmesso = val)
     // );
   }
+  nome: any = localStorage.getItem('nome')!;
 
   searchBar = this.fb.group({
     search: ['', Validators.required],
   });
   ngOnInit(): void {
-
-    this.showName()
-
-
+    this.nome;
   }
 
   searchProduct(event: any) {
@@ -58,21 +55,27 @@ export class NavbarComponent implements OnInit {
 
   getId(id: number) {
     this.detail.getProductId(id);
-    this.router.navigate([]);
-    this.router
-      .navigateByUrl('detail', { skipLocationChange: false })
-      .then(() => {
-        this.router.navigate(['detail']);
-      });
+    
+    
+    this.router.navigate(['dashboard/detail'], {
+      queryParams: { id: id },
+    }).then(() => {
+      window.location.reload();
+    });
+
+  
+    // this.shouldReuseRoute('dashboard/detail', 'dashboard/detail')
+   
+    
+      
   }
 
-  showName() {
-    this.route.queryParams.subscribe((param) => {
-      console.log(param);
-      this.nomeEmesso = param['name'];
-      console.log(this.nomeEmesso);
-    }
-    )
+  // shouldReuseRoute(
+  //   previous: ActivatedRouteSnapshot,
+  //   next: ActivatedRouteSnapshot
+  // ): boolean {
+  //   return previous.routeConfig === next.routeConfig;
+  // }
 
-  }
+ 
 }

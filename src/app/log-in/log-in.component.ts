@@ -1,5 +1,11 @@
 import { useAnimation } from '@angular/animations';
-import { Component, EventEmitter, OnInit, Output, resolveForwardRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  resolveForwardRef,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Persone, User } from '../models/users.model';
 import { ChiamataService } from '../services/chiamata.service';
@@ -12,12 +18,15 @@ import { NavbarService } from '../services/navbar.service';
   styleUrls: ['./log-in.component.css'],
 })
 export class LogInComponent implements OnInit {
+  nome!: string;
 
-nome!:string;
-
-  constructor(private chiamata: ChiamataService, private fb: FormBuilder,private router: Router,private loginOut:OutputnomeService, private navbar: NavbarService ) {
-   
-  }
+  constructor(
+    private chiamata: ChiamataService,
+    private fb: FormBuilder,
+    private router: Router,
+    private loginOut: OutputnomeService,
+    private navbar: NavbarService
+  ) {}
 
   loginForm = this.fb.group({
     username: ['', Validators.required],
@@ -28,23 +37,24 @@ nome!:string;
     const usernamevalue = this.loginForm.get('username')?.value;
     const passwordvalue = this.loginForm.get('password')?.value;
     this.chiamata.logInQuery(usernamevalue!).subscribe((response: any) => {
+      console.log(response.users[0].id);
+      if (response.users[0].password === passwordvalue) {
+        this.nome =
+          response.users[0].firstName + ' ' + response.users[0].lastName;
+        console.log(this.nome);
+        this.loginOut.emitChange(this.nome);
 
-      console.log(response.users[0].id)
-      if(response.users[0].password === passwordvalue){
-    
-      this.nome = response.users[0].firstName+' '+response.users[0].lastName;
-      console.log(this.nome);
-      this.loginOut.emitChange(this.nome);
-      this.router.navigate(['/dashboard/homepage'], {queryParams: {name: this.nome}});
+        let completeName = this.nome;
+        localStorage.setItem('nome', completeName);
 
+        this.router.navigate(['/dashboard/homepage'], {
+          queryParams: { name: this.nome },
+        });
+      } else {
+        alert('credenziali sbagliate');
       }
-      else{
-        alert('credenziali sbagliate')
-      }
-     
-  })}
+    });
+  }
 
   ngOnInit(): void {}
-
-
 }
