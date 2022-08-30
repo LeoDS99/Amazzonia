@@ -8,6 +8,6 @@ export class CartServiceService {
   constructor(private http: HttpClient) {}
 
   getSingleCart(id: number) {
-    return this.http.get(`https://dummyjson.com/carts/${id}`);
+    return this.http.get(`https://dummyjson.com/carts/user/${id}`);
   }
 }
