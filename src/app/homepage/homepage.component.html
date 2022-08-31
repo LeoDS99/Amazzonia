@@ -6,7 +6,6 @@
           class="card-img-top"
           src="{{ product.thumbnail }}"
           alt="Card image cap"
-         
         />
         <div class="card-body">
           <h5 class="card-title">{{ product.title }}</h5>
@@ -24,9 +23,9 @@
             >
               Scopri di più!
             </button>
-            <a href="#" class="btn btn-success">
-              <i class="fa fa-cart-plus" aria-hidden="true"></i
-            ></a>
+            <button (click)="addToCart(product.id)" class="btn btn-success">
+              <i class="fa fa-cart-plus" aria-hidden="true"></i>
+            </button>
           </div>
         </div>
       </div>

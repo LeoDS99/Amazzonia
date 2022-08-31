@@ -12,14 +12,14 @@ export class CartComponent implements OnInit {
     private cartService: CartServiceService,
     private route: ActivatedRoute
   ) {}
-  cartId!: number;
+  Userofcart!: number;
   ngOnInit(): void {
     this.showId();
     this.getCart();
   }
   cart!: any;
   getCart() {
-    this.cartService.getSingleCart(this.cartId).subscribe((response) => {
+    this.cartService.getSingleCart(this.Userofcart).subscribe((response) => {
       console.log(response);
       this.cart = response;
     });
@@ -27,8 +27,8 @@ export class CartComponent implements OnInit {
   showId() {
     this.route.queryParams.subscribe((param) => {
       console.log(param);
-      this.cartId = param['id'];
-      console.log(this.cartId);
+      this.Userofcart = param['id'];
+      console.log(this.Userofcart);
     });
   }
 }

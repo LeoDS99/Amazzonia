@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { filter } from 'rxjs';
 import { ChiamataService } from '../services/chiamata.service';
 import { DetailProductService } from '../services/detail-product.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarService } from '../services/navbar.service';
+import { CartServiceService } from '../services/cart-service.service';
 
 @Component({
   selector: 'app-homepage',
@@ -14,13 +15,23 @@ export class HomepageComponent implements OnInit {
   constructor(
     private router: Router,
     private http: ChiamataService,
-    private detail: DetailProductService,
-    private navbar: NavbarService
-  ) {}
+    private route: ActivatedRoute,
+    private cartService: CartServiceService
+  ) {
+    this.route.queryParams
+      .pipe(filter((params) => params['userId']))
+      .subscribe((params) => {
+        console.log(params); // { category: "fiction" }
+        this.userId = params['userId'];
+        console.log(this.userId); // fiction
+      });
+  }
   products!: any;
-
+  userId!: any;
+  cartId!: any;
   ngOnInit(): void {
     this.getProduct();
+    this.getCartId();
   }
   getProduct() {
     this.http.getProduct().subscribe((response: any) => {
@@ -30,11 +41,22 @@ export class HomepageComponent implements OnInit {
   }
 
   getDetail(parameter: number) {
-    
-      
-        this.router.navigate(['dashboard/detail'], {
-          queryParams: { id: parameter },
-        });
-      
+    this.router.navigate(['dashboard/detail'], {
+      queryParams: { id: parameter },
+    });
+  }
+
+  getCartId() {}
+
+  addToCart(productId: any) {
+    this.cartService.getSingleCart(this.userId).subscribe((response: any) => {
+      this.cartId = response.carts[0].userId;
+      console.log(this.cartId);
+    });
+    this.cartService
+      .addItemToCart(this.userId, productId)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 }
