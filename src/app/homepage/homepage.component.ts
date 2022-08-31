@@ -50,13 +50,13 @@ export class HomepageComponent implements OnInit {
 
   addToCart(productId: any) {
     this.cartService.getSingleCart(this.userId).subscribe((response: any) => {
-      this.cartId = response.carts[0].userId;
+      this.cartId = response.carts[0].id;
       console.log(this.cartId);
+      this.cartService
+        .addItemToCart(this.cartId, productId)
+        .subscribe((response) => {
+          console.log(response);
+        });
     });
-    this.cartService
-      .addItemToCart(this.userId, productId)
-      .subscribe((response) => {
-        console.log(response);
-      });
   }
 }
