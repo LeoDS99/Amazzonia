@@ -79,7 +79,11 @@ export class HomepageComponent implements OnInit {
   })
   }
 
- 
+ refreshPage(){
+  // event.value = ''
+  window.location.reload();
+  // this.categoryProduct=[]
+ }
 
 
 }

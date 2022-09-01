@@ -1,11 +1,16 @@
 <div class="container">
-  <label>
-    <select (change)="onChange($event)" placeholder="select category">
-      <option value="" disabled selected>pick your category</option>
+  <label class="my-3">
+    <span class="h2">Pick category </span>
+    <select class="mx-2" (change)="onChange($event)" placeholder="select category">
+      <option value="" disabled selected >select </option> 
       <option value="{{ category }}" *ngFor="let category of categories">
         {{ category }}
       </option>
     </select>
+    <button class="btn border-0 border " *ngIf="categoryProduct.length" (click)="refreshPage()" >
+      <i class="fa fa-times-circle-o " aria-hidden="true"></i>
+    </button>
+   
   </label>
 
   <div *ngIf="categoryProduct.length; else cicciogamer">
