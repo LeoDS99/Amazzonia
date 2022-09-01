@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { Product, RootObject } from '../models/product.model';
+import { Product, ProductInterface,  } from '../models/product.model';
 import { ChiamataService } from './chiamata.service';
 
 @Injectable({
@@ -21,6 +21,6 @@ export class DetailProductService {
   }
 
   searchProduct(value: string) {
-    return this.http.get<RootObject>(`https://dummyjson.com/products/search?q=${value}`);
+    return this.http.get<ProductInterface>(`https://dummyjson.com/products/search?q=${value}`);
   }
 }

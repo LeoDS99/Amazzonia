@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Product, ProductInterface } from '../models/product.model';
 import { Persone, User } from '../models/users.model';
 
 @Injectable({
@@ -15,15 +16,15 @@ export class ChiamataService {
   }
 
   getProduct() {
-    return this.http.get('https://dummyjson.com/products');
+    return this.http.get<ProductInterface>('https://dummyjson.com/products');
   }
 
   getCategory(){
-    return this.http.get('https://dummyjson.com/products/categories/')
+    return this.http.get<[]>('https://dummyjson.com/products/categories/')
   }
 
   getSpecificProducts(category:string){
-    return this.http.get(`https://dummyjson.com/products/category/${category}`)
+    return this.http.get<ProductInterface>(`https://dummyjson.com/products/category/${category}`)
 
   }
 }

@@ -5,6 +5,7 @@ import { DetailProductService } from '../services/detail-product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarService } from '../services/navbar.service';
 import { CartServiceService } from '../services/cart-service.service';
+import { Product, ProductInterface } from '../models/product.model';
 
 @Component({
   selector: 'app-homepage',
@@ -26,18 +27,18 @@ export class HomepageComponent implements OnInit {
         console.log(this.userId); // fiction
       });
   }
-  products!: any;
-  userId!: any;
-  cartId!: any;
-  categories:any = [];
-  categoryProduct:any = [];
+  products!: Product[];
+  userId!: number;
+  cartId!: number;
+  categories:[] = [];
+  categoryProduct:Product[] = [];
   
   ngOnInit(): void {
     this.getProduct();
     this.getCategories();
   }
   getProduct() {
-    this.http.getProduct().subscribe((response: any) => {
+    this.http.getProduct().subscribe((response: ProductInterface) => {
       this.products = response.products;
       console.log(this.products);
     });
@@ -51,7 +52,7 @@ export class HomepageComponent implements OnInit {
 
  
 
-  addToCart(productId: any) {
+  addToCart(productId: number) {
     this.cartService.getSingleCart(this.userId).subscribe((response: any) => {
       this.cartId = response.carts[0].id;
       console.log(this.cartId);
@@ -64,7 +65,7 @@ export class HomepageComponent implements OnInit {
   }
 
   getCategories(){
-    this.http.getCategory().subscribe((response)=> {
+    this.http.getCategory().subscribe((response:[])=> {
       this.categories = response
       console.log(this.categories)
     })
@@ -73,15 +74,13 @@ export class HomepageComponent implements OnInit {
   onChange(event:any){
    let singleCategory = event.target.value;
    console.log(singleCategory)
-   this.http.getSpecificProducts(singleCategory).subscribe((res:any) => {
+   this.http.getSpecificProducts(singleCategory).subscribe((res:ProductInterface) => {
     this.categoryProduct = res.products;
     console.log(this.categoryProduct)
   })
   }
 
  allCategory(){
-  // event.value = ''
-  // window.location.reload();
   this.categoryProduct=[]
  }
 

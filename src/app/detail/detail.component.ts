@@ -1,7 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Product, RootObject } from '../models/product.model';
+import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 
 @Component({
