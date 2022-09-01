@@ -1,16 +1,20 @@
 <div class="container">
   <label class="my-3">
-    <span class="h2"> Scegli le categorie </span>
+    <span class="h2"> Scegli la categoria </span>
     <select class="mx-2" (change)="onChange($event)" placeholder="select category">
       <option value="" disabled selected >Seleziona </option> 
+      <option (click)="allCategory()">All Categories </option>
       <option value="{{ category }}" *ngFor="let category of categories">
         {{ category }}
       </option>
     </select>
-    <button class="btn border-0 border " *ngIf="categoryProduct.length" (click)="refreshPage()" >
+    <!-- <button class="btn border-0 border "  >
       <i class="fa fa-times-circle-o " aria-hidden="true"></i>
-    </button>
+    </button> -->
    
+    <button class="btn border-0 border " (click)="sortPriceCrescent()"> <i class="fa fa-arrow-up " aria-hidden="true"></i></button>
+    <button class="btn border-0 border"(click)="sortPriceDecrescent()"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>
+
   </label>
 
   <div *ngIf="categoryProduct.length; else cicciogamer">

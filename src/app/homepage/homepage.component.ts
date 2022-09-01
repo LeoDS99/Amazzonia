@@ -79,11 +79,28 @@ export class HomepageComponent implements OnInit {
   })
   }
 
- refreshPage(){
+ allCategory(){
   // event.value = ''
-  window.location.reload();
-  // this.categoryProduct=[]
+  // window.location.reload();
+  this.categoryProduct=[]
  }
 
+ sortPriceCrescent(){
+  this.products.sort((a: { price: number; }, b: { price: number; }) => a.price - b.price)
+  this.categoryProduct.sort((a: { price: number; }, b: { price: number; }) => a.price - b.price)
+
+  console.log(this.products)
+  console.log(this.categoryProduct)
+
+ }
+
+ sortPriceDecrescent(){
+  this.products.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price)
+  this.categoryProduct.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price)
+
+  console.log(this.products)
+  console.log(this.categoryProduct)
+  
+ }
 
 }
