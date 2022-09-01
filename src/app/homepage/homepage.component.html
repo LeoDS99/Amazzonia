@@ -1,8 +1,8 @@
 <div class="container">
   <label class="my-3">
-    <span class="h2">Pick category </span>
+    <span class="h2"> Scegli le categorie </span>
     <select class="mx-2" (change)="onChange($event)" placeholder="select category">
-      <option value="" disabled selected >select </option> 
+      <option value="" disabled selected >Seleziona </option> 
       <option value="{{ category }}" *ngFor="let category of categories">
         {{ category }}
       </option>
