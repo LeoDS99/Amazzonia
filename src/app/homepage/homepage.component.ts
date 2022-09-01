@@ -29,9 +29,12 @@ export class HomepageComponent implements OnInit {
   products!: any;
   userId!: any;
   cartId!: any;
+  categories:any = [];
+  categoryProduct:any = [];
+  
   ngOnInit(): void {
     this.getProduct();
-    this.getCartId();
+    this.getCategories();
   }
   getProduct() {
     this.http.getProduct().subscribe((response: any) => {
@@ -46,7 +49,7 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  getCartId() {}
+ 
 
   addToCart(productId: any) {
     this.cartService.getSingleCart(this.userId).subscribe((response: any) => {
@@ -59,4 +62,24 @@ export class HomepageComponent implements OnInit {
         });
     });
   }
+
+  getCategories(){
+    this.http.getCategory().subscribe((response)=> {
+      this.categories = response
+      console.log(this.categories)
+    })
+  }
+
+  onChange(event:any){
+   let singleCategory = event.target.value;
+   console.log(singleCategory)
+   this.http.getSpecificProducts(singleCategory).subscribe((res:any) => {
+    this.categoryProduct = res.products;
+    console.log(this.categoryProduct)
+  })
+  }
+
+ 
+
+
 }

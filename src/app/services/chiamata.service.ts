@@ -17,4 +17,13 @@ export class ChiamataService {
   getProduct() {
     return this.http.get('https://dummyjson.com/products');
   }
+
+  getCategory(){
+    return this.http.get('https://dummyjson.com/products/categories/')
+  }
+
+  getSpecificProducts(category:string){
+    return this.http.get(`https://dummyjson.com/products/category/${category}`)
+
+  }
 }
