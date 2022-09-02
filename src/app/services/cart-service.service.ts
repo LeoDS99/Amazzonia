@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Carrello, Product } from '../models/carts.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,10 @@ export class CartServiceService {
   constructor(private http: HttpClient) {}
 
   getSingleCart(id: number) {
-    return this.http.get(`https://dummyjson.com/carts/user/${id}`);
+    return this.http.get<Carrello>(`https://dummyjson.com/carts/user/${id}`);
   }
 
-  addItemToCart(idCart: any, idProduct: any) {
+  addItemToCart(idCart: string | number, idProduct: string | number) {
     const body = {
       products: [
         {
@@ -20,6 +21,9 @@ export class CartServiceService {
         },
       ],
     };
-    return this.http.put<any>(`https://dummyjson.com/carts/${idCart}`, body);
+    return this.http.put<Product>(
+      `https://dummyjson.com/carts/${idCart}`,
+      body
+    );
   }
 }

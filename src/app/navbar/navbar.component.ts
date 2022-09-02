@@ -1,16 +1,9 @@
-import { JsonPipe } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import {
-  ActivatedRoute,
-  ActivatedRouteSnapshot,
-  Router,
-} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription, filter } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
-import { NavbarService } from '../services/navbar.service';
-import { OutputnomeService } from '../services/outputnome.service';
 
 @Component({
   selector: 'navbar',
@@ -26,18 +19,12 @@ export class NavbarComponent implements OnInit {
   navbarSub!: Subscription;
 
   constructor(
-    private dataService: OutputnomeService,
     private detail: DetailProductService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute,
-    private showNav: NavbarService
-  ) {
-    // this.subscription = dataService.nameEmitted$.subscribe(
-    //   (val) => (this.nomeEmesso = val)
-    // );
-  }
-  nome: any = localStorage.getItem('nome')!;
+    private route: ActivatedRoute
+  ) {}
+  nome: string = localStorage.getItem('nome')!;
   takedUserId!: string;
   searchBar = this.fb.group({
     search: ['', Validators.required],
@@ -46,9 +33,9 @@ export class NavbarComponent implements OnInit {
     this.route.queryParams
       .pipe(filter((params) => params['userId']))
       .subscribe((params) => {
-        console.log(params); // { category: "fiction" }
+        console.log(params);
         this.takedUserId = params['userId'];
-        console.log(this.takedUserId); // fiction
+        console.log(this.takedUserId);
       });
   }
 
@@ -72,8 +59,6 @@ export class NavbarComponent implements OnInit {
       .then(() => {
         window.location.reload();
       });
-
-    // this.shouldReuseRoute('dashboard/detail', 'dashboard/detail')
   }
 
   navigateToCart() {
@@ -81,10 +66,4 @@ export class NavbarComponent implements OnInit {
       queryParams: { id: this.takedUserId },
     });
   }
-  // shouldReuseRoute(
-  //   previous: ActivatedRouteSnapshot,
-  //   next: ActivatedRouteSnapshot
-  // ): boolean {
-  //   return previous.routeConfig === next.routeConfig;
-  // }
 }

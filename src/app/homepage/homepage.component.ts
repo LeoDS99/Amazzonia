@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs';
 import { ChiamataService } from '../services/chiamata.service';
-import { DetailProductService } from '../services/detail-product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NavbarService } from '../services/navbar.service';
 import { CartServiceService } from '../services/cart-service.service';
+import { Product, ProductInterface } from '../models/product.model';
+import { Carrello } from '../models/carts.model';
 
 @Component({
   selector: 'app-homepage',
@@ -21,23 +21,23 @@ export class HomepageComponent implements OnInit {
     this.route.queryParams
       .pipe(filter((params) => params['userId']))
       .subscribe((params) => {
-        console.log(params); // { category: "fiction" }
+        console.log(params);
         this.userId = params['userId'];
-        console.log(this.userId); // fiction
+        console.log(this.userId);
       });
   }
-  products!: any;
-  userId!: any;
-  cartId!: any;
-  categories:any = [];
-  categoryProduct:any = [];
-  
+  products!: Product[];
+  userId!: number;
+  cartId!: number;
+  categories: string[] = [];
+  categoryProduct: Product[] = [];
+
   ngOnInit(): void {
     this.getProduct();
     this.getCategories();
   }
   getProduct() {
-    this.http.getProduct().subscribe((response: any) => {
+    this.http.getProduct().subscribe((response: ProductInterface) => {
       this.products = response.products;
       console.log(this.products);
     });
@@ -49,58 +49,63 @@ export class HomepageComponent implements OnInit {
     });
   }
 
- 
+  addToCart(productId: number) {
+    this.cartService
+      .getSingleCart(this.userId)
+      .subscribe((response: Carrello) => {
+        this.cartId = response.carts[0].id;
+        console.log(this.cartId);
+        this.cartService
+          .addItemToCart(this.cartId, productId)
+          .subscribe((response) => {
+            console.log(response);
+          });
+      });
+  }
 
-  addToCart(productId: any) {
-    this.cartService.getSingleCart(this.userId).subscribe((response: any) => {
-      this.cartId = response.carts[0].id;
-      console.log(this.cartId);
-      this.cartService
-        .addItemToCart(this.cartId, productId)
-        .subscribe((response) => {
-          console.log(response);
-        });
+  getCategories() {
+    this.http.getCategory().subscribe((response: string[]) => {
+      this.categories = response;
+      console.log(this.categories);
     });
   }
 
-  getCategories(){
-    this.http.getCategory().subscribe((response)=> {
-      this.categories = response
-      console.log(this.categories)
-    })
+  onChange(event: any) {
+    let singleCategory = event.target.value;
+    console.log(singleCategory);
+    this.http
+      .getSpecificProducts(singleCategory)
+      .subscribe((res: ProductInterface) => {
+        this.categoryProduct = res.products;
+        console.log(this.categoryProduct);
+      });
   }
 
-  onChange(event:any){
-   let singleCategory = event.target.value;
-   console.log(singleCategory)
-   this.http.getSpecificProducts(singleCategory).subscribe((res:any) => {
-    this.categoryProduct = res.products;
-    console.log(this.categoryProduct)
-  })
+  allCategory() {
+    this.categoryProduct = [];
   }
 
- allCategory(){
-  // event.value = ''
-  // window.location.reload();
-  this.categoryProduct=[]
- }
+  sortPriceCrescent() {
+    this.products.sort(
+      (a: { price: number }, b: { price: number }) => a.price - b.price
+    );
+    this.categoryProduct.sort(
+      (a: { price: number }, b: { price: number }) => a.price - b.price
+    );
 
- sortPriceCrescent(){
-  this.products.sort((a: { price: number; }, b: { price: number; }) => a.price - b.price)
-  this.categoryProduct.sort((a: { price: number; }, b: { price: number; }) => a.price - b.price)
+    console.log(this.products);
+    console.log(this.categoryProduct);
+  }
 
-  console.log(this.products)
-  console.log(this.categoryProduct)
+  sortPriceDecrescent() {
+    this.products.sort(
+      (a: { price: number }, b: { price: number }) => b.price - a.price
+    );
+    this.categoryProduct.sort(
+      (a: { price: number }, b: { price: number }) => b.price - a.price
+    );
 
- }
-
- sortPriceDecrescent(){
-  this.products.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price)
-  this.categoryProduct.sort((a: { price: number; }, b: { price: number; }) => b.price - a.price)
-
-  console.log(this.products)
-  console.log(this.categoryProduct)
-  
- }
-
+    console.log(this.products);
+    console.log(this.categoryProduct);
+  }
 }
