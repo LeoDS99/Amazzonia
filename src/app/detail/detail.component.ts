@@ -1,6 +1,5 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 
@@ -11,7 +10,6 @@ import { DetailProductService } from '../services/detail-product.service';
 })
 export class DetailComponent implements OnInit {
   productId: number = 0;
-  subsc!: Subscription;
   productInfo!: Product;
 
   constructor(
@@ -20,14 +18,8 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.subsc = this.detail.emittedProduct$.subscribe((response: any) => {
-    //   this.productId = response;
-    // });
     this.showId();
-  
   }
-
-  // this.getDetail();
 
   showId() {
     this.route.queryParams.subscribe((param) => {
@@ -40,11 +32,4 @@ export class DetailComponent implements OnInit {
       this.productInfo = response;
     });
   }
-
- 
-  // getDetail() {
-  //   return this.detail.getDetailUrl(this.productId).subscribe((response: Product) => {
-  //     this.productInfo = response;
-  //   })
-  // }
 }

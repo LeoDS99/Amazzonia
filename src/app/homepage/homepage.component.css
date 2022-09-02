@@ -1,26 +1,24 @@
 .card {
   height: 100%;
- 
 }
 
-.card-img-top{
-
+.card-img-top {
   height: 250px;
-  background-size:cover;
+  background-size: cover;
 }
 
-.card-text{
+.card-text {
   font-size: 15px;
   height: 100px;
   overflow: hidden;
-
 }
 
-.fa-times-circle-o{
+.fa-times-circle-o {
   font-size: 25px;
-  color:orange
+  color: orange;
 }
 
-.fa-arrow-up,.fa-arrow-down{
-  color:orange
+.fa-arrow-up,
+.fa-arrow-down {
+  color: orange;
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Carrello } from '../models/carts.model';
 import { CartServiceService } from '../services/cart-service.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class CartComponent implements OnInit {
     this.showId();
     this.getCart();
   }
-  cart!: any;
+  cart!: Carrello;
   getCart() {
     this.cartService.getSingleCart(this.Userofcart).subscribe((response) => {
       console.log(response);
