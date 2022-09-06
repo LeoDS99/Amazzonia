@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 
@@ -22,7 +22,7 @@ export class DetailComponent implements OnInit {
   }
 
   showId() {
-    this.route.queryParams.subscribe((param) => {
+    this.route.queryParams.subscribe((param: Params) => {
       console.log(param);
       this.productId = param['id'];
       console.log(this.productId);
