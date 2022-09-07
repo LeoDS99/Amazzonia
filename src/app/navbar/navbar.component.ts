@@ -52,13 +52,12 @@ export class NavbarComponent implements OnInit {
   getId(id: number) {
     this.detail.getProductId(id);
 
-    this.router
-      .navigate(['dashboard/detail'], {
-        queryParams: { id: id },
-      })
-      .then(() => {
-        window.location.reload();
-      });
+    this.router.navigate(['dashboard/detail'], {
+      queryParams: { id: id },
+    });
+    // .then(() => {
+    //   window.location.reload();
+    // });
   }
 
   navigateToCart() {
