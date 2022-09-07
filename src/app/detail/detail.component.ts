@@ -12,20 +12,19 @@ import { DetailProductService } from '../services/detail-product.service';
 export class DetailComponent implements OnInit, OnDestroy {
   productId: number = 0;
   productInfo!: Product;
-  productSub!: Subscription;
+  productSub?: Subscription;
 
   constructor(
     private detail: DetailProductService,
     private route: ActivatedRoute
   ) {}
 
-  ngOnDestroy(): void {}
   ngOnInit(): void {
     this.showId();
   }
 
   showId() {
-    this.route.queryParams.subscribe((param: Params) => {
+    this.productSub = this.route.queryParams.subscribe((param: Params) => {
       console.log(param);
       this.productId = param['id'];
       console.log(this.productId);
@@ -34,5 +33,8 @@ export class DetailComponent implements OnInit, OnDestroy {
       console.log(response);
       this.productInfo = response;
     });
+  }
+  ngOnDestroy(): void {
+    this.productSub?.unsubscribe();
   }
 }
