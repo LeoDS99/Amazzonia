@@ -17,22 +17,24 @@ export class DetailComponent implements OnInit, OnDestroy {
   constructor(
     private detail: DetailProductService,
     private route: ActivatedRoute
-  ) {}
-
-  ngOnDestroy(): void {}
-  ngOnInit(): void {
+  ) {
     this.showId();
   }
+
+  ngOnDestroy(): void {}
+  ngOnInit(): void {}
 
   showId() {
     this.route.queryParams.subscribe((param: Params) => {
       console.log(param);
       this.productId = param['id'];
       console.log(this.productId);
-    });
-    this.detail.getDetailUrl(this.productId).subscribe((response: Product) => {
-      console.log(response);
-      this.productInfo = response;
+      this.detail
+        .getDetailUrl(this.productId)
+        .subscribe((response: Product) => {
+          console.log(response);
+          this.productInfo = response;
+        });
     });
   }
 }
