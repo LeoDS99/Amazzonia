@@ -54,7 +54,7 @@ export class NavbarComponent implements OnInit {
 
     this.router.navigate(['dashboard/detail'], {
       queryParams: { id: id },
-    });
+    })
     // .then(() => {
     //   window.location.reload();
     // });
@@ -66,3 +66,7 @@ export class NavbarComponent implements OnInit {
     });
   }
 }
+function then(arg0: () => void) {
+  throw new Error('Function not implemented.');
+}
+
