@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, ParamMap, Params } from '@angular/router';
+import { Subscription, switchMap } from 'rxjs';
 import { Product } from '../models/product.model';
 import { DetailProductService } from '../services/detail-product.service';
 
@@ -24,17 +24,27 @@ export class DetailComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
   ngOnInit(): void {}
 
+  // showId() {
+  //   this.route.queryParams.subscribe((param: Params) => {
+  //     console.log(param);
+  //     this.productId = param['id'];
+  //     console.log(this.productId);
+  //     this.detail
+  //       .getDetailUrl(this.productId)
+  //       .subscribe((response: Product) => {
+  //         console.log(response);
+  //         this.productInfo = response;
+  //       });
+  //   });
+  // }
+
   showId() {
-    this.route.queryParams.subscribe((param: Params) => {
-      console.log(param);
-      this.productId = param['id'];
-      console.log(this.productId);
-      this.detail
-        .getDetailUrl(this.productId)
-        .subscribe((response: Product) => {
-          console.log(response);
-          this.productInfo = response;
-        });
-    });
-  }
+    this.productSub = this.route.queryParamMap
+    .pipe(
+      switchMap((params: ParamMap) =>
+        this.detail.getDetailUrl(+params.get('id')!)
+      )
+    )
+    .subscribe((response) => (this.productInfo = response));
+}
 }

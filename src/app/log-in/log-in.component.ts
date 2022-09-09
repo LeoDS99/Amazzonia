@@ -38,6 +38,7 @@ export class LogInComponent implements OnInit {
         let completeName = this.nome;
         localStorage.setItem('nome', completeName);
 
+        // this.router.navigate(['/dashboard/homepage',this.nome,this.userId])
         this.router.navigate(['/dashboard/homepage'], {
           queryParams: { name: this.nome, userId: this.userId },
         });
