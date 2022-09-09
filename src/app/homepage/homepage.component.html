@@ -42,7 +42,7 @@
               <button
                 href="#"
                 class="btn btn-dark mx-3"
-                [routerLink]="['detail', product.id]"
+                (click)="getDetail(product.id)"
               >
                 Scopri di più!
               </button>
@@ -78,7 +78,7 @@
               <button
               
                 class="btn btn-dark mx-3"
-                [routerLink]="['detail', product.id]"
+              (click)="getDetail(product.id)"
               >
                 Scopri di più!
               </button>
