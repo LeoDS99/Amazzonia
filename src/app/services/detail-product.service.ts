@@ -7,6 +7,7 @@ import { Product, ProductInterface } from '../models/product.model';
   providedIn: 'root',
 })
 export class DetailProductService {
+ 
   private subject = new BehaviorSubject<any>(null);
   emittedProduct$: any = this.subject.asObservable();
   constructor(private http: HttpClient) {}

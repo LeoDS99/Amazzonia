@@ -42,7 +42,7 @@
               <button
                 href="#"
                 class="btn btn-dark mx-3"
-                (click)="getDetail(product.id)"
+                [routerLink]="['detail', product.id]"
               >
                 Scopri di più!
               </button>
@@ -76,9 +76,9 @@
                 €{{ product.price }}
               </button>
               <button
-                href="#"
+              
                 class="btn btn-dark mx-3"
-                (click)="getDetail(product.id)"
+                [routerLink]="['detail', product.id]"
               >
                 Scopri di più!
               </button>

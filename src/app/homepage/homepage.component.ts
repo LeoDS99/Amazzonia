@@ -43,11 +43,11 @@ export class HomepageComponent implements OnInit {
     });
   }
 
-  getDetail(parameter: number) {
-    this.router.navigate(['dashboard/detail'], {
-      queryParams: { id: parameter },
-    });
-  }
+  // getDetail(parameter: number) {
+  //   this.router.navigate(['dashboard/detail',parameter], {
+      
+  //   });
+  // }
 
   addToCart(productId: number) {
     this.cartService

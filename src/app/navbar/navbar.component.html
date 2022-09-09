@@ -34,7 +34,7 @@
         <div
           class="singleItem"
           *ngFor="let product of foundedProduct"
-          (click)="getId(product.id)"
+          [routerLink]="['homepage/detail', product.id]"
         >
           <h1>{{ product.title }}</h1>
         </div>
